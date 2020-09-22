@@ -7,23 +7,30 @@ if you have problem with a specific gallery app please report it in Issues (I ca
 The passages for make this example (and for use UserImageContainer in other project) from a new project with an empty activity are:
 
 - add an xml icon (user_icon.xml) to drawable
-- add the following permission to the manifest: <uses-permissionandroid:name="android.permission.READ_EXTERNAL_STORAGE"/>
+- add the following permission to the manifest: 
+  ```
+  <uses-permissionandroid:name="android.permission.READ_EXTERNAL_STORAGE"/>
+  ```
 - override onActivityResult in the activity that was passed or in the fragment if it is not null and here call userImageContainer.onActivityResult passing the arguments
 of the onActivityResult overwritten and true or false respectively if you want to save the selected image or not (you can save it later with saveContent())
 - add this to the manifest:
-	<provider
-		android:name="androidx.core.content.FileProvider"
-		android:authorities="nie.translator.userimage.fileprovider"
-		android:exported="false"
-		android:grantUriPermissions="true">
-		<meta-data
-			android:name="android.support.FILE_PROVIDER_PATHS"
-			android:resource="@xml/filepaths"/>
-	</provider>
+  ```
+  <provider
+	  android:name="androidx.core.content.FileProvider"
+	  android:authorities="nie.translator.userimage.fileprovider"
+	  android:exported="false"
+	  android:grantUriPermissions="true">
+	  <meta-data
+		  android:name="android.support.FILE_PROVIDER_PATHS"
+		  android:resource="@xml/filepaths"/>
+  </provider>
+  ```
 - create the "filepaths.xml" file in the "xml" folder with the following content:
-	<paths>
-		<cache-pathpath="temporary_images/"name="temporaryUserImage"/>
-	</paths>
+  ```
+  <paths>
+	  <cache-pathpath="temporary_images/"name="temporaryUserImage"/>
+  </paths>
+  ```
 
 
 For saving the image you can mark the last parameter of userImageContainer.onActivityResult with true, in this case the image will be saved automatically at the end of the crop, 
