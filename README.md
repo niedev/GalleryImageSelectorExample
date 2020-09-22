@@ -38,7 +38,7 @@ if you want instead to save the image in another moment (maybe after an error ch
 userImageContainer.saveContent() and UserImageContainer will save the last cropped image.
 The saved image can be accessed with "new File(context.getFilesDir(), "user_image");" in this case context must be an Activity or an Application or a Service.
 
-In this case we have inserted the imageView in an activity but to make UserImageContainer work with an imageView contained in a fragment just insert the fragment 
+In this case I have inserted the imageView in an activity but to make UserImageContainer work with an imageView contained in a fragment just insert the fragment 
 between the arguments and instead of overriding onActivityResult in the activity we will have to do it in the fragment, for an example of this see directlty the
 implementation in RTranslator 
 
