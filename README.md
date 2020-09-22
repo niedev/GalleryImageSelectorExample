@@ -1,5 +1,4 @@
-# UserImageExample
-This repository contains an open source sample application that implements a user image selector from an extern gallery, the sample is based on the <a href="https://github.com/niedev/RTranslator/blob/master/app/src/main/java/nie/translator/rtranslatordevedition/settings/UserImageContainer.java" target="_blank" rel="noopener noreferrer">UserImageContainer</a> class of <a href="https://github.com/niedev/RTranslator" target="_blank" rel="noopener noreferrer">RTranslator</a>.
+This repository contains an open source sample application that implements a user image selector from an extern gallery, the sample is based on the <a href="https://github.com/niedev/RTranslator/blob/master/app/src/main/java/nie/translator/rtranslatordevedition/settings/UserImageContainer.java" target="_blank" rel="noopener noreferrer">UserImageContainer</a> class of <a href="https://github.com/niedev/RTranslator" target="_blank" rel="noopener noreferrer">RTranslator</a>.<br /><br />
 The UserImageContainer is highly optimized (fixes a lot of bugs including the rotation bug) and work with a variety of different galleries, even when combined
 (you can use a gallery for pick and another for crop without problems)
 if you have problem with a specific gallery app please report it in Issues (I cannot guarantee that I will be able to fix the problem but I can try if I have time).
@@ -46,8 +45,7 @@ userImageContainer.saveContent() and UserImageContainer will save the last cropp
 The saved image can be accessed with "new File(context.getFilesDir(), "user_image");" in this case context must be an Activity or an Application or a Service.
 <br /><br />
 In this case I have inserted the imageView in an activity but to make UserImageContainer work with an imageView contained in a fragment just insert the fragment 
-between the arguments and instead of overriding onActivityResult in the activity we will have to do it in the fragment, for an example of this see directlty the
-implementation in RTranslator 
+between the arguments and instead of overriding onActivityResult in the activity we will have to do it in the fragment, for an example of this see directlty the <a href="https://github.com/niedev/RTranslator/blob/master/app/src/main/java/nie/translator/rtranslatordevedition/settings/UserImageContainer.java" target="_blank" rel="noopener noreferrer">implementation in RTranslator</a>.
 <br /><br />
 Notes: onActivityResult overwritten will be called two times, one after selection and one after the crop, if the save parameter is true the image will be saved only after
 the crop, not the first time.
