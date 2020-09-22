@@ -3,6 +3,13 @@ This repository contains an open source sample application that implements a use
 The UserImageContainer is highly optimized (fixes a lot of bugs including the rotation bug) and work with a variety of different galleries, even when combined
 (you can use a gallery for pick and another for crop without problems)
 if you have problem with a specific gallery app please report it in Issues (I cannot guarantee that I will be able to fix the problem but I can try if I have time).
+<br /><br /><br />
+<p align="center">
+	<kbd>
+		<img src="https://github.com/niedev/UserImageExample/blob/master/images/image_selection.gif" >
+	</kbd>
+</p>
+<br /><br />
 
 The passages for make this example (and for use UserImageContainer in other project) from a new project with an empty activity are:
 
