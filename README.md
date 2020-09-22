@@ -1,5 +1,5 @@
 # UserImageExample
-This repository contains an open source sample application that implements a user image selector from an extern gallery, the sample is based on the UserImageContainer class of RTranslator.
+This repository contains an open source sample application that implements a user image selector from an extern gallery, the sample is based on the <a href="https://github.com/niedev/RTranslator/blob/master/app/src/main/java/nie/translator/rtranslatordevedition/settings/UserImageContainer.java" target="_blank" rel="noopener noreferrer">UserImageContainer</a> class of <a href="https://github.com/niedev/RTranslator" target="_blank" rel="noopener noreferrer">RTranslator</a>.
 The UserImageContainer is highly optimized (fixes a lot of bugs including the rotation bug) and work with a variety of different galleries, even when combined
 (you can use a gallery for pick and another for crop without problems)
 if you have problem with a specific gallery app please report it in Issues (I cannot guarantee that I will be able to fix the problem but I can try).
