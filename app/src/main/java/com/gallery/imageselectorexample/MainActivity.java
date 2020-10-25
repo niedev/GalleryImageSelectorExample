@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.myapplication;
+package com.gallery.imageselectorexample;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,18 +22,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.gallery.imageselector.GalleryImageSelector;
+
 public class MainActivity extends AppCompatActivity {
 
-    private UserImageContainer userImageContainer;
-    private ImageView imageView;
+    private GalleryImageSelector userImageContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        imageView = findViewById(R.id.user_image_initialization);
+        ImageView imageView = findViewById(R.id.user_image_initialization);
 
-        userImageContainer= new UserImageContainer(imageView, this, null);
+        userImageContainer = new GalleryImageSelector(imageView, this, null, R.drawable.user_icon, "com.gallery.imageselector.provider");
     }
 
     @Override

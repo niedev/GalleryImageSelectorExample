@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.gallery.imageselectorexample;
 
 import org.junit.Test;
 

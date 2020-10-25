@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication">
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    package="com.gallery.imageselectorexample">
 
     <application
         android:allowBackup="true"
@@ -11,17 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.gallery.imageselectorexample.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="nie.translator.userimage.fileprovider"
+            android:authorities="com.gallery.imageselector.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
