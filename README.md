@@ -1,7 +1,6 @@
-This repository contains an open source sample application that implements a user image selector from an extern gallery, the sample is based on the <a href="https://github.com/niedev/RTranslator/blob/master/app/src/main/java/nie/translator/rtranslatordevedition/settings/UserImageContainer.java" target="_blank" rel="noopener noreferrer">UserImageContainer</a> class of <a href="https://github.com/niedev/RTranslator" target="_blank" rel="noopener noreferrer">RTranslator</a>.<br /><br />
-The UserImageContainer is highly optimized (fixes a lot of bugs including the rotation bug) and work with a variety of different galleries, even when combined
-(you can use a gallery for pick and another for crop without problems)
-if you have problem with a specific gallery app please report it in Issues (I cannot guarantee that I will be able to fix the problem but I can try if I have time).
+### GalleryImageSelector example
+
+This repository contains an open source sample application of the GalleryImageSelector library created for RTranslator. The library, allow you to pick and crop an image from a gallery.
 <br /><br /><br />
 <p align="center">
 	<kbd>
@@ -10,43 +9,74 @@ if you have problem with a specific gallery app please report it in Issues (I ca
 </p>
 <br /><br />
 
-The passages for make this example (and for use UserImageContainer in other project) from a new project with an empty activity are:
+### GalleryImageSelector library
+The GalleryImageSelector is a library, created originally for <a href="https://github.com/niedev/RTranslator" target="_blank" rel="noopener noreferrer">RTranslator</a>, that allows you to pick an image from gallery, crop it and save it in an internal file that can be accessed from the GalleryImageSelector class (via the static method GalleryImageSelector.getSavedImage).<br />
+The library is highly optimized (fixes a lot of bugs including the rotation bug) and work with a variety of different galleries,
+even when combined (you can use a gallery for pick and another for crop without problems). If you have problem with a specific gallery app please report it in Issues (I cannot guarantee that I will be able to fix the problem but I can try if I have time).<br />
 
-- Add an xml icon (user_icon.xml) to drawable to be displayed if none image is selected
-- Create an ImageView that will contain the image and pass it to the UserImageContainer constructor together with the activity that contains it (if it is contained in a fragment pass that too)
-- Add the following permission to the manifest: 
-  ```
-  <uses-permissionandroid:name="android.permission.READ_EXTERNAL_STORAGE"/>
-  ```
-- Override onActivityResult in the activity that was passed or in the fragment if it is not null and here call userImageContainer.onActivityResult passing the arguments
-of the onActivityResult overwritten and true or false respectively if you want to save the selected image or not (you can save it later with saveContent())
-- Add this to the manifest:
-  ```
+For see an example app check <a href="https://github.com/niedev/GalleryImageSelectorExample" target="_blank" rel="noopener noreferrer">BluetoothCommunicatorExample</a> or <a href="https://github.com/niedev/RTranslator" target="_blank" rel="noopener noreferrer">RTranslator</a><br /><br />
+
+#### Tutorial
+For use the library in a project you have to add jitpack.io to your root build.gradle (project):
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+Then add the last version of BluetoothCommunicator to your app build.gradle
+```
+dependencies {
+        implementation 'com.github.niedev:GalleryImageSelector:1.0.7'
+}
+```
+
+<br />When GalleryImageSelector is created, when the user pick an image and when he crop it the results of those operations will be sent
+via onActivityResult of the activity or the fragment passed to GalleryImageSelector in its constructor.
+So you will have to override onActivityResult on the activity or on the fragment and inside of it call the method onActivityResult
+of GalleryImageSelector and pass to it the results received from onActivityResult, for more details keep reading.
+<br /><br />
+To use the library follow these passages:
+- Insert this code inside <application> in the manifest of your app, and fill authorities with a unique name of your choice
+(if your app has the same authority name of another intalled on a phone your app will not be installed) like "com.hello.world":
+```
   <provider
-	  android:name="androidx.core.content.FileProvider"
-	  android:authorities="nie.translator.userimage.fileprovider"
-	  android:exported="false"
-	  android:grantUriPermissions="true">
-	  <meta-data
-		  android:name="android.support.FILE_PROVIDER_PATHS"
-		  android:resource="@xml/filepaths"/>
+      android:name="androidx.core.content.FileProvider"
+      android:authorities="custom autority name"
+      android:exported="false"
+      android:grantUriPermissions="true">
+      <meta-data
+          android:name="android.support.FILE_PROVIDER_PATHS"
+          android:resource="@xml/filepaths" />
   </provider>
-  ```
-- Create the "filepaths.xml" file in the "xml" folder with the following content:
-  ```
-  <paths>
-	  <cache-pathpath="temporary_images/"name="temporaryUserImage"/>
-  </paths>
-  ```
+```
 
+- create an xml folder (if you not have one) in the res folder and insert a file named filepath.xml with this code:
+```
+  <?xml version="1.0" encoding="utf-8"?>
+  <paths>
+     <cache-path path="temporary_images/" name="temporaryUserImage" />
+  </paths>
+```
+- Create an ImageView that will contain the image.
+
+- Create a GalleryImageSelector object as attribute of the Object that will override onActivityResult (the Fragment or the Activity),
+pick the image view with findViewById and pass it to the constructor of GalleryImageSelector,
+in the constructor also insert the current activity, and if you are using a Fragment and you want to override onActivityResult in that fragment
+pass the fragment in addition to the activity (you have to pass the activity anyway) instead if you want to override onActivityResult in the
+activity or you are not using a Fragment pass the activity and null for the fragment argument.<br />
+The next argument of the constructor is the resourceId of the default image that GalleryImageSelector should use es. R.drawable.user_icon, it
+should be the same of the ImageView.<br />
+The last Argument is the authority name that you chosen in the manifest (they must be equal).
+
+- Override onActivityResult in the activity that was passed or in the fragment if it is not null and here call (using the attribute of type GalleryImageSelector created before) galleryImageSelector.onActivityResult
+passing the arguments of the onActivityResult overwritten and true or false respectively if you want to save the selected image or not (you can save it later with saveContent()).
 <br /><br />
-For saving the image you can mark the last parameter of userImageContainer.onActivityResult with true, in this case the image will be saved automatically at the end of the crop, 
-if you want instead to save the image in another moment (maybe after an error check for other data) you can mark the save parameter of onActivityResult false and use
-userImageContainer.saveContent() and UserImageContainer will save the last cropped image.<br />
-The saved image can be accessed with "new File(context.getFilesDir(), "user_image");" in this case context must be an Activity, an Application or a Service.
-<br /><br />
-In this example I have inserted the imageView in an activity but to make UserImageContainer work with an imageView contained in a fragment just insert the fragment 
-between the arguments and instead of overriding onActivityResult in the activity we will have to do it in the fragment, for an example of this see directlty the <a href="https://github.com/niedev/RTranslator/blob/master/app/src/main/java/nie/translator/rtranslatordevedition/settings/UserImageContainer.java" target="_blank" rel="noopener noreferrer">implementation in RTranslator</a>.
-<br /><br />
-Notes: onActivityResult overwritten will be called two times, one after selection and one after the crop, if the save parameter is true the image will be saved only after
-the crop, not the first time.
+
+For saving the image you can mark the last parameter of galleryImageSelector.onActivityResult with true, in this case the image will be
+saved automatically at the end of the crop, if you want instead to save the image in another moment (maybe after an error check for other data)
+you can mark the save parameter of onActivityResult false and use galleryImageSelector.saveImage() and UserImageContainer will save the last cropped image.
+The saved image can be accessed with "new File(context.getFilesDir(), "user_image");" or with the static method GalleryImageSelector.getSavedImage(context).
+
